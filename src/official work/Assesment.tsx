@@ -6,19 +6,24 @@ import {
   View,
   Animated,
   Easing,
+  Image,
 } from "react-native";
+
 import React, { useEffect, useState } from "react";
 import { WindowWidth } from "../theme/constant";
 import CustomButton from "../components/CustomButton";
 import AnimatedProgressBar from "./AnimatedProgressBar";
 import { questionsData } from "./QuestionData";
+import RNAlert from "../components/RNAlert";
 
 const lineWidth = WindowWidth / 6;
 const questions = [1, 2, 3, 4, 5];
-
+const circle = require("../images/circle.png");
+const circle_mark = require("../images/circle-mark.png");
 const Assesment = () => {
   const [progressIndex, setProgressIndex] = useState<number[]>([1]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const currentQuestion = questionsData[currentIndex];
   const [fadeAnim] = useState(new Animated.Value(0));
@@ -34,6 +39,7 @@ const Assesment = () => {
   }, [currentIndex]);
 
   const handleNext = () => {
+    setSelectedOption(null);
     let nextIndex = currentIndex + 1;
     addProgress(progressIndex.length + 1);
     if (nextIndex < questions.length) {
@@ -46,6 +52,7 @@ const Assesment = () => {
   };
 
   const handleSubmit = () => {
+    setShowAlert(true);
     console.log("question finished");
   };
 
@@ -85,11 +92,16 @@ const Assesment = () => {
           {currentQuestion.options.map((option) => (
             <TouchableOpacity
               key={option.id}
-              style={styles.option}
+              // style={styles.option}
               onPress={() => setSelectedOption(option.id)}
+              activeOpacity={0.6}
             >
               <View style={styles.innerView}>
                 <Text style={styles.optionText}>{option.text}</Text>
+                <Image
+                  source={selectedOption == option.id ? circle_mark : circle}
+                  style={styles.image}
+                />
               </View>
             </TouchableOpacity>
           ))}
@@ -133,6 +145,13 @@ const Assesment = () => {
             disabled={!selectedOption}
           />
         )}
+
+        <RNAlert
+          isVisible={showAlert}
+          message="Thankyou for successfully completing you assessment !!"
+          onCancel={() => setShowAlert(false)}
+          onConfirm={() => setShowAlert(false)}
+        />
       </View>
     </SafeAreaView>
   );
@@ -164,27 +183,38 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingVertical: 20,
   },
-  option: {
-    backgroundColor: "#0a3d62",
-    justifyContent: "center",
-    rowGap: 10,
-    marginVertical: 10,
-    // paddingVertical: 20,
-    height: 65,
-    paddingHorizontal: 5,
-    borderRadius: 20,
-  },
+  // option: {
+  //   backgroundColor: "#0a3d62",
+  //   justifyContent: "center",
+  //   rowGap: 10,
+  //   marginVertical: 10,
+  //   // paddingVertical: 20,
+  //   height: 65,
+  //   paddingHorizontal: 5,
+  //   borderRadius: 20,
+  // },
   optionText: {
     fontSize: 18,
     fontWeight: "500",
     color: "white",
   },
   innerView: {
-    height: 55,
-    borderRadius: 14,
-    justifyContent: "center",
-    paddingHorizontal: 5,
+    flexDirection: "row",
+    marginVertical: 10,
+    borderWidth: 8,
+    borderColor: "#0a3d62",
+    height: 65,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
 
     backgroundColor: "#0261a2",
+  },
+  image: {
+    width: 24,
+    height: 24,
+    resizeMode: "cover",
+    tintColor: "white",
   },
 });
