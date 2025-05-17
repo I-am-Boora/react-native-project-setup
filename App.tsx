@@ -5,8 +5,8 @@
  * @format
  */
 
-import React, {useState} from 'react';
-import type {PropsWithChildren} from 'react';
+import React, { useState } from "react";
+import type { PropsWithChildren } from "react";
 import {
   Button,
   Pressable,
@@ -17,28 +17,21 @@ import {
   Text,
   useColorScheme,
   View,
-} from 'react-native';
+} from "react-native";
 
-import CustomText from './src/components/CustomText';
-import {Colors, FontSize, Margin} from './src/theme/constant';
-import CustomButton from './src/components/CustomButton';
-import CustomSpinner from './src/components/CustomSpinner';
-import Loader from './src/components/Loader';
-import RadioButton from './src/components/RadioButton';
-import CustomTextInput from './src/components/CustomTextInput';
-import CustomPicker from './src/components/CustomPicker';
-import CustomBottomSheet from './src/components/CustomBottomSheet';
-import RNHeader from './src/animation/header';
-import RNAlert from './src/components/RNAlert';
+// import { Colors, FontSize, Margin } from "./src/theme/constant";
+import Assesment from "./src/official work/Assesment";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Margin } from "./src/theme/constant";
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const [selected, setSelected] = useState<string | number>('option1');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setemailError] = useState('');
+  const isDarkMode = useColorScheme() === "dark";
+  const [selected, setSelected] = useState<string | number>("option1");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setemailError] = useState("");
   const [selectedItem, setSelectedItem] = useState<string | number | null>(
-    null,
+    null
   );
   const [isSheetVisible, setSheetVisible] = useState(false);
   const backgroundStyle = {
@@ -47,20 +40,20 @@ function App(): React.JSX.Element {
   const [showAlert, setShowAlert] = useState(false);
   const handleEmail = (val: string) => {
     setEmail(val);
-    if (!val.includes('@')) {
-      setemailError('Enter valid email');
-    } else if (val === '') {
-      setemailError('');
+    if (!val.includes("@")) {
+      setemailError("Enter valid email");
+    } else if (val === "") {
+      setemailError("");
     } else {
-      setemailError('');
+      setemailError("");
     }
   };
   const handleDelete = () => {
-    console.log('message deleted');
+    console.log("message deleted");
     setShowAlert(false);
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       {/* <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
@@ -154,7 +147,7 @@ function App(): React.JSX.Element {
 
       <Button title="Open Bottom Sheet" onPress={() => setSheetVisible(true)} /> */}
       {/* <RNHeader /> */}
-      <RNAlert
+      {/* <RNAlert
         isVisible={showAlert}
         title="Delete Confirmation"
         message="Are you sure you want to delete this file?"
@@ -166,10 +159,11 @@ function App(): React.JSX.Element {
         // containerStyle={{backgroundColor: '#fff'}}
         // confirmButtonTextStyle={{color: 'white'}}
         // buttonStyle={{backgroundColor: Colors.primary}}
-      />
-      <Pressable onPress={() => setShowAlert(true)}>
+      /> */}
+      {/* <Pressable onPress={() => setShowAlert(true)}>
         <Text>show alert</Text>
-      </Pressable>
+      </Pressable> */}
+      <Assesment />
     </SafeAreaView>
   );
 }
@@ -179,7 +173,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
     paddingHorizontal: 24,
   },
-  textStyles: {marginTop: Margin.sm},
+  textStyles: { marginTop: Margin.sm },
 });
 
 export default App;
