@@ -75,7 +75,7 @@ const Assesment = () => {
               {
                 translateY: fadeAnim.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [20, 0], // slide up
+                  outputRange: [20, 0],
                 }),
               },
             ],
