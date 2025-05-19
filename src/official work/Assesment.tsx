@@ -15,7 +15,123 @@ import CustomButton from "../components/CustomButton";
 import AnimatedProgressBar from "./AnimatedProgressBar";
 import { questionsData } from "./QuestionData";
 import RNAlert from "../components/RNAlert";
+import RadioButton from "../components/RadioButton";
+import NumberPicker from "./NumberPIcker";
 
+export const QuestionOneUI = ({
+  selectedOption,
+  onPress,
+}: {
+  selectedOption: string | null;
+  onPress: (id: string) => void;
+}) => {
+  return (
+    <View>
+      <Text style={styles.questionText}>{questionsData[0].question}</Text>
+      {questionsData[0].options.map((option) => (
+        <TouchableOpacity
+          key={option.id}
+          // style={styles.option}
+          onPress={() => onPress(option.id)}
+          activeOpacity={0.6}
+        >
+          <View style={styles.innerView}>
+            <Text style={styles.optionText}>{option.text}</Text>
+            <Image
+              source={selectedOption == option.id ? circle_mark : circle}
+              style={styles.image}
+            />
+          </View>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+};
+
+export const RadioButtonCard = ({ value, selectgender, onPress, title }) => {
+  return (
+    <View
+      style={{
+        backgroundColor: "lightgrey",
+        height: 200,
+        width: "100%",
+        borderWidth: 1,
+        borderRadius: 12,
+        marginBottom: 20,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          columnGap: 20,
+          justifyContent: "center",
+        }}
+      >
+        <Text style={{ fontSize: 30 }}>{title}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            onPress(value);
+            console.log("selected value----", value);
+          }}
+          style={{
+            borderWidth: 2,
+            width: 24,
+            height: 24,
+            borderRadius: 12,
+            justifyContent: "center",
+          }}
+        >
+          {selectgender == value && (
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 5,
+                padding: 5,
+                backgroundColor: "black",
+                alignSelf: "center",
+              }}
+            ></View>
+          )}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+export const QuestionTwoUI = ({
+  selectgender,
+  onPress,
+}: {
+  onPress: (id: string) => void;
+}) => {
+  return (
+    <View>
+      <Text style={styles.questionText}>Select your gender</Text>
+      {["Men", "Women"].map((gender, index) => {
+        return (
+          <RadioButtonCard
+            key={index.toString()}
+            value={gender}
+            selectgender={selectgender}
+            onPress={onPress}
+            title={gender.toUpperCase()}
+          />
+        );
+      })}
+    </View>
+  );
+};
+export const QuestionThreeUI = () => {
+  return (
+    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      <NumberPicker />
+    </View>
+  );
+};
 const lineWidth = WindowWidth / 6;
 const questions = [1, 2, 3, 4, 5];
 const circle = require("../images/circle.png");
@@ -27,7 +143,7 @@ const Assesment = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const currentQuestion = questionsData[currentIndex];
   const [fadeAnim] = useState(new Animated.Value(0));
-
+  const [gender, setGender] = useState<string | null>();
   useEffect(() => {
     fadeAnim.setValue(0);
     Animated.timing(fadeAnim, {
@@ -61,6 +177,36 @@ const Assesment = () => {
       setProgressIndex((prev) => [...prev, step]);
     }
   };
+  const handleOnPress = (id: any) => {
+    setSelectedOption(id);
+    if (id == "Men" || id == "Women") {
+      setGender(id);
+    }
+  };
+
+  const renderQuestionUI = () => {
+    switch (currentIndex) {
+      case 0:
+        return (
+          <QuestionOneUI
+            selectedOption={selectedOption}
+            onPress={(id: any) => handleOnPress(id)}
+          />
+        );
+      case 1:
+        return (
+          <QuestionTwoUI
+            selectgender={gender}
+            onPress={(gender) => handleOnPress(gender)}
+          />
+        );
+      case 2:
+        return <QuestionThreeUI />;
+      // etc.
+      default:
+        return <Text>Invalid Question</Text>;
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -88,7 +234,7 @@ const Assesment = () => {
             ],
           }}
         >
-          <Text style={styles.questionText}>{currentQuestion.question}</Text>
+          {/* <Text style={styles.questionText}>{currentQuestion.question}</Text>
           {currentQuestion.options.map((option) => (
             <TouchableOpacity
               key={option.id}
@@ -104,7 +250,8 @@ const Assesment = () => {
                 />
               </View>
             </TouchableOpacity>
-          ))}
+          ))} */}
+          {renderQuestionUI()}
         </Animated.View>
         {/* <CustomButton
           title="Next"
