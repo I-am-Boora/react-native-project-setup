@@ -23,6 +23,7 @@ import {
 import Assesment from "./src/official work/Assesment";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Margin } from "./src/theme/constant";
+import Onboarding from "./src/animation/onboarding/onboarding";
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
@@ -163,7 +164,8 @@ function App(): React.JSX.Element {
       {/* <Pressable onPress={() => setShowAlert(true)}>
         <Text>show alert</Text>
       </Pressable> */}
-      <Assesment />
+      {/* <Assesment /> */}
+      <Onboarding />
     </SafeAreaView>
   );
 }
