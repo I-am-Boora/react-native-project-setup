@@ -22,8 +22,13 @@ import {
 // import { Colors, FontSize, Margin } from "./src/theme/constant";
 import Assesment from "./src/official work/Assesment";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { Margin } from "./src/theme/constant";
+import { MARGIN } from "./src/theme/constant";
 import Onboarding from "./src/animation/onboarding/onboarding";
+import { ProfileScreen } from "./src/screens/ProfileScreen";
+import DeviceConnect from "./src/screens/DeviceConnect";
+import BloodPressure from "./src/official work/DeviceUI/BloodPressure";
+import WeightCard from "./src/official work/DeviceUI/WeightCard";
+import HealthCard from "./src/official work/DeviceUI/HealthCard";
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
@@ -165,7 +170,13 @@ function App(): React.JSX.Element {
         <Text>show alert</Text>
       </Pressable> */}
       {/* <Assesment /> */}
-      <Onboarding />
+      {/* <Onboarding /> */}
+
+      {/* <ProfileScreen /> */}
+      {/* <DeviceConnect /> */}
+      {/* <BloodPressure /> */}
+      {/* <WeightCard /> */}
+      <HealthCard />
     </SafeAreaView>
   );
 }
@@ -175,7 +186,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
     paddingHorizontal: 24,
   },
-  textStyles: { marginTop: Margin.sm },
+  textStyles: { marginTop: MARGIN.sm },
 });
 
 export default App;

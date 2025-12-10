@@ -192,7 +192,7 @@ const Onboarding = () => {
     transform: [{ translateY: wrapperTranslateY.value }],
   }));
 
-  const getStyle = (opacity, translateY) =>
+  const getStyle = (opacity: any, translateY: any) =>
     useAnimatedStyle(() => ({
       opacity: opacity.value,
       transform: [{ translateY: translateY.value }],

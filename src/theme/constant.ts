@@ -2,7 +2,18 @@
 
 import { Dimensions } from "react-native";
 
-export const Colors = {
+export interface Theme {
+  backgroundColor: string;
+}
+
+export const lightTheme = {
+backgroundColor:'#FFFFFF'
+}
+
+export const darkTheme = {
+backgroundColor:'#333333'
+}
+export const COLORS = {
   primary: '#1E90FF',
   secondary: '#FF69B4',
   background: '#FFFFFF',
@@ -15,7 +26,12 @@ export const Colors = {
   error:'#dc3545',
 };
 
-export const FontSize = {
+export const FONT_WEIGHTS = {
+  regular: 'normal',
+  medium: '500',
+  bold: 'bold',
+};
+export const FONT_SIZES = {
   xs: 12,
   sm: 14,
   md: 16,
@@ -25,7 +41,7 @@ export const FontSize = {
   title: 32,
 };
 
-export const Spacing = {
+export const SPACING = {
   xs: 4,
   sm: 8,
   md: 12,
@@ -34,7 +50,7 @@ export const Spacing = {
   xxl: 32,
 };
 
-export const BorderRadius = {
+export const BORDER_RADIUS = {
   sm: 4,
   md: 8,
   lg: 12,
@@ -42,7 +58,7 @@ export const BorderRadius = {
   round: 9999,
 };
 
-export const Padding = Spacing;
-export const Margin = Spacing;
+export const PADDING = SPACING;
+export const MARGIN = SPACING;
 export const WindowWidth = Dimensions.get('window').width
 export const WindowHeight = Dimensions.get('window').height
